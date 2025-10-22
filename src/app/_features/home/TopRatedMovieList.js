@@ -43,7 +43,7 @@ export const TopRatedMovieList = () => {
               key={index}
               point={movie.vote_average}
               name={movie.title}
-              image={`https://image.tmdb.org/t/p/original${movie.backdrop_path}`}
+              image={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
             />
           );
         })}

@@ -1,4 +1,3 @@
-import { StarIcon } from "@/Icons/StarIcon";
 import { MovieRateStarIcon } from "@/Icons/MovieRateStarIcon";
 
 export const MovieCard = (props) => {
