@@ -51,7 +51,7 @@ export function HeroSection() {
                       <div
                         className="relative bg-cover bg-center bg-no-repeat h-[600px] w-full"
                         style={{
-                          backgroundImage: `url('https://image.tmdb.org/t/p/original${movie.poster_path}')`,
+                          backgroundImage: `url('https://image.tmdb.org/t/p/original${movie.backdrop_path}')`,
                         }}
                       >
                         <div className=" flex flex-col items-start gap-4 absolute left-35 bottom-40 w-[404px]">

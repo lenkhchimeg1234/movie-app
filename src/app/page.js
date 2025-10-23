@@ -7,13 +7,15 @@ import { TopRatedMovieList } from "./_features/home/TopRatedMovieList";
 
 export default function Home() {
   return (
-    <div className="min-w-[1440px] max-w-[1440px] flex flex-col  gap-[52px] ">
-      <Header />
-      <HeroSection />
-      <UpcomingMovieList />
-      <PopularMovieList />
-      <TopRatedMovieList />
-      <Footer />
+    <div className="w-screen h-screen flex justify-center">
+      <div className="w-[1440px] flex flex-col  gap-[52px] ">
+        <Header />
+        <HeroSection />
+        <UpcomingMovieList />
+        <PopularMovieList />
+        <TopRatedMovieList />
+        <Footer />
+      </div>
     </div>
   );
 }
