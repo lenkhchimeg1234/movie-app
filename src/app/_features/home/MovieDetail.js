@@ -1,6 +1,7 @@
 "use client";
 
 import { StarIcon } from "@/Icons/StarIcon";
+import { MovieCard } from "@/app/_components/MovieCard";
 import { WatchTrailerIcon } from "@/Icons/WatchTrailerIcon";
 
 import { Card, CardContent } from "@/components/ui/card";
@@ -13,19 +14,19 @@ import {
   CarouselDots,
 } from "@/components/ui/carousel";
 import { useEffect, useState } from "react";
-import { LoadingHeroSection } from "../skeloton/LoadingHeroSection";
+
 const BASE_URL = "https://api.themoviedb.org/3";
 const ACCESS_TOKEN =
   "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMjI5ZmNiMGRmZTNkMzc2MWFmOWM0YjFjYmEyZTg1NiIsIm5iZiI6MTc1OTcxMTIyNy43OTAwMDAyLCJzdWIiOiI2OGUzMGZmYjFlN2Y3MjAxYjI5Y2FiYmIiLCJzY29wZXMiOlsiYXBpX3JlYWQiXSwidmVyc2lvbiI6MX0.M0DQ3rCdsWnMw8U-8g5yGXx-Ga00Jp3p11eRyiSxCuY";
 
-export function HeroSection() {
-  const [heroSectionData, setHeroSectionData] = useState([]);
+export function MovieDetail() {
+  const [detailData, setDetailData] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const getHeroSectionData = async () => {
+  const getDetailData = async () => {
     setLoading(true);
-    const herosectionEndpoint = `${BASE_URL}/movie/now_playing?language=en-US&page=1`;
-    const response = await fetch(herosectionEndpoint, {
+    const detailEndpoint = `${BASE_URL} /movie/${id}/videos?language=en-US`;
+    const response = await fetch(detailEndpoint, {
       headers: {
         Authorization: `Bearer ${ACCESS_TOKEN}`,
         "Content-Type": "application/json",
@@ -33,58 +34,38 @@ export function HeroSection() {
     });
 
     const data = await response.json();
-
-    setHeroSectionData(data.results);
+    console.log("data", data);
+    setDetailData(data.results);
     setTimeout(() => {
       setLoading(false);
     }, "2000");
   };
 
   useEffect(() => {
-    getHeroSectionData();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    getDetailData();
   }, []);
-  if (loading)
-    return (
-      <div>
-        <LoadingHeroSection />
-      </div>
-    );
-  console.log(heroSectionData);
+  if (loading) return <div></div>;
+  console.log(detailData);
 
   return (
-    <div className="flex justify-center items-center w-full ">
+    <div className="flex justify-center items-center w-full h-[524px]">
       <Carousel className="w-full ">
         <CarouselContent>
-          {heroSectionData.slice(0, 5).map((movie, index) => (
+          {detailData.map((movie, index) => (
             <CarouselItem key={index}>
               <div>
                 <Card>
                   <CardContent>
+                    <MovieCard
+                      image={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+                    />
                     <div
-                      className="relative bg-cover bg-center bg-no-repeat h-[600px] w-full"
+                      className="relative bg-cover bg-center bg-no-repeat h-[428px] w-[760px]"
                       style={{
                         backgroundImage: `url('https://image.tmdb.org/t/p/original${movie.backdrop_path}')`,
                       }}
                     >
                       <div className=" flex flex-col items-start gap-4 absolute left-35 bottom-40 w-[404px]">
-                        <div>
-                          <span className="text-white font-inter text-base font-normal leading-6">
-                            Now Playing:
-                          </span>
-                          <p className="text-white font-inter text-4xl font-bold leading-[40px] tracking-[-0.9px]">
-                            {movie.title}
-                          </p>
-                          <div className="flex gap-1 items-center">
-                            <StarIcon />
-                            <p className="text-[#FAFAFA] font-inter text-lg font-semibold leading-7">
-                              {movie.vote_average}
-                            </p>
-                            <p className=" text-[#71717A] font-inter text-base font-normal leading-6">
-                              /10
-                            </p>
-                          </div>
-                        </div>
                         <div className="text-[#FAFAFA] font-inter text-xs font-normal leading-4 w-[302px]">
                           {movie.overview}
                         </div>
@@ -109,3 +90,24 @@ export function HeroSection() {
     </div>
   );
 }
+//  <div>
+//         {movie.name}
+//         {date}
+//       </div>
+//       <div>
+//         <p>Rating</p>
+//         <div className="flex gap-1 items-center">
+//           <StarIcon />
+//           <p className="text-[#FAFAFA] font-inter text-lg font-semibold leading-7">
+//             {movie.vote_average}
+//           </p>
+//           <p className=" text-[#71717A] font-inter text-base font-normal leading-6">
+//             /10
+//           </p>
+//         </div>
+//         <div>
+//           <MovieCard
+//             image={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
+//           />
+//         </div>
+//       </div>

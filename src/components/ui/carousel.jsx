@@ -233,7 +233,7 @@ function CarouselDots({ className, ...props }) {
           aria-label={`Slide ${index + 1}`}
           className={cn(
             "size-2.5 rounded-full cursor-pointer ",
-            index === selectedIndex ? "bg-gray-700" : " bg-gray-400"
+            index === selectedIndex ? "bg-gray-700" : " bg-gray-4ç00"
           )}
           onClick={() => scrollTo(index)}
         />
