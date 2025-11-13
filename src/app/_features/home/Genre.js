@@ -11,7 +11,7 @@ import {
   NavigationMenuViewport,
 } from "@/components/ui/navigation-menu";
 import { Badge } from "@/components/ui/badge";
-import { SeeMoreIcon } from "@/Icons/SeeMoreIcon";
+
 import { GenreRigthIcon } from "@/Icons/GenreRigthIcon";
 const BASE_URL = "https://api.themoviedb.org/3";
 const ACCESS_TOKEN =
@@ -41,12 +41,14 @@ export const Genre = () => {
     <NavigationMenu>
       <NavigationMenuList>
         <NavigationMenuItem>
-          <NavigationMenuTrigger>Genre</NavigationMenuTrigger>
+          <NavigationMenuTrigger className="cursor-pointer">
+            Genre
+          </NavigationMenuTrigger>
 
           <NavigationMenuContent>
             <NavigationMenuLink>
-              <div className="flex flex-col gap-2">
-                <p className="w-[577px] font-inter font-semibold text-[24px] leading-[32px] tracking-[-0.025em]">
+              <div className="flex flex-col gap-2 ">
+                <p className="w-[577px] font-inter font-semibold text-[24px] leading-[32px] tracking-[-0.025em] ">
                   Genres
                 </p>
                 <p className="font-inter font-normal text-[16px] leading-[24px] tracking-[0em]">

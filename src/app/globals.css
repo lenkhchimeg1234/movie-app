@@ -1,7 +1,27 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "tailwind base";
+@import "tailwind components";
+@tailwind utilities;
 
 @custom-variant dark (&:is(.dark *));
+
+/* Smooth transition between light/dark */
+html {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Default light mode */
+html {
+  background-color: #ffffff;
+  color: #09090b;
+}
+
+/* Dark mode overrides */
+html.dark {
+  background-color: #0f172a; /* Tailwind slate-900 */
+  color: #f4f4f5;
+}
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);

@@ -3,7 +3,7 @@ import { Header } from "@/app/_features/Header";
 import { Footer } from "@/app/_features/Footer";
 import { useState, useEffect } from "react";
 import { MovieCard } from "@/app/_components/MovieCard";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter, usePathname, useParams } from "next/navigation";
 import {
   Pagination,
   PaginationContent,
@@ -13,6 +13,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { LoadingMovieList } from "@/app/MovieLoading/MovieListLoading";
 import { LoadingMoviesType } from "@/app/MovieLoading/MovieTypeLoading";
 
 const BASE_URL = "https://api.themoviedb.org/3";
@@ -21,40 +22,41 @@ const ACCESS_TOKEN =
 
 const titles = {
   upcoming: "Upcoming",
-  popular: "Popular",
-  top_rated: "Top Rated",
 };
 
-export default function Upcoming() {
+export default function MoreLikeThis() {
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-
-  const params = useParams();
-  console.log("params", params);
   const router = useRouter();
+  const { id } = useParams();
+  // const pathname = usePathname();
+  // const id = pathname.split("/movie/")[1];
   const [loading, setLoading] = useState(false);
-  const [upcomingData, setUpcomingData] = useState([]);
 
-  const getUpcomingData = async () => {
+  const [moreLikeThisData, setMoreLikeThisData] = useState([]);
+
+  const getMoreLikeThisData = async () => {
     setLoading(true);
-    const upcomingEndpoint = `${BASE_URL}/movie/${params.type}?language=en-US&page=${page}`;
-    const response = await fetch(upcomingEndpoint, {
+    console.log("id", id);
+    const morelikethisEndpoint = `${BASE_URL}/movie/${id}/similar?language=en-US&page=${page}`;
+    const moreLikeThisResponse = await fetch(morelikethisEndpoint, {
       headers: {
         Authorization: `Bearer ${ACCESS_TOKEN}`,
         "Content-Type": "application/json",
       },
     });
 
-    const data = await response.json();
+    const data = await moreLikeThisResponse.json();
 
-    setUpcomingData(data.results);
+    setMoreLikeThisData(data.results || []);
+
     setTimeout(() => {
       setLoading(false);
     }, "1000");
   };
 
   useEffect(() => {
-    getUpcomingData();
+    getMoreLikeThisData();
   }, [page]);
 
   const handleClickNextButton = (page) => {
@@ -81,14 +83,15 @@ export default function Upcoming() {
         <div className="flex flex-col px-[80px] gap-x-8 gap-8">
           <div className="flex items-center justify-between">
             <p className="text-[var(--text-text-foreground)] font-inter text-2xl font-semibold leading-8 tracking-[-0.6px]">
-              {titles[params.type]}
+              More like this
             </p>
           </div>
           <div className="flex items-start content-start self-stretch flex-wrap gap-x-8 gap-y-8">
-            {upcomingData.slice(0, 20).map((movie, index) => {
+            {moreLikeThisData.slice(0, 10).map((movie) => {
               return (
                 <MovieCard
-                  key={index}
+                  key={movie.id}
+                  id={movie.id}
                   point={movie.vote_average}
                   name={movie.title}
                   image={`https://image.tmdb.org/t/p/original${movie.poster_path}`}

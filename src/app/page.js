@@ -8,7 +8,6 @@ import Skeleton from "react-loading-skeleton";
 export default function Home() {
   return (
     <div className="w-screen h-screen flex justify-center">
-      <Skeleton width={100} />
       <div className="w-[1440px] flex flex-col  gap-[52px] ">
         <Header />
         <HeroSection />
