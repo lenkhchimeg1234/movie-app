@@ -1,10 +1,10 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "tailwind base";
-@import "tailwind components";
-@tailwind utilities;
+/* @import "tailwind base"; */
+/* @import "tailwind components"; */
+/* @tailwind utilities; */
 
-@custom-variant dark (&:is(.dark *));
+/* @custom-variant dark (&:is(.dark *)); */
 
 /* Smooth transition between light/dark */
 html {

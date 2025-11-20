@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { MovieCard } from "@/app/_components/MovieCard";
 import { Badge } from "@/components/ui/badge";
 import { GenreRigthIcon } from "@/Icons/GenreRigthIcon";
@@ -24,8 +24,8 @@ export default function SearchResult() {
   const [searchData, setSearchData] = useState([]);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const searchValue = searchParams.get("query");
+  const { searchValue } = useParams();
+  console.log("searchValue", searchValue);
   const [page, setPage] = useState(1);
 
   const SearchResultList = async () => {
